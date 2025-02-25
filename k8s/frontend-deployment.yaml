@@ -16,7 +16,7 @@ spec:
       - name: frontend
         image: elmimoha15/tokengen-frontend:latest
         ports:
-        - containerPort: 80
+        - containerPort: 80  
 ---
 apiVersion: v1
 kind: Service
@@ -28,7 +28,6 @@ spec:
     app: tokengen-frontend
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: 30002
-
+      port: 80        
+      targetPort: 80   
+      nodePort: 30002  
