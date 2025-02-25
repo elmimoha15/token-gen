@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tokengen-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tokengen-frontend
+  template:
+    metadata:
+      labels:
+        app: tokengen-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: elmimoha15/tokengen-frontend:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tokengen-frontend-service
+spec:
+  selector:
+    app: tokengen-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

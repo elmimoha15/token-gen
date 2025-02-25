@@ -23,7 +23,7 @@ const Dashboard: React.FC = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:8000/generate-token', {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/generate-token`, {
         length,
         uppercase: includeUppercase,
         lowercase: includeLowercase,
