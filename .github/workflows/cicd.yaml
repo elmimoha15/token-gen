@@ -39,8 +39,8 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: "./k8s/*"
-          target: "~/deploy/k8s"
+          source: "./k8s"            
+          target: "/home/${{ secrets.SERVER_USER }}/deploy/k8s" 
 
       # ✅ Correctly indented Deploy step
       - name: Deploy to MicroK8s
@@ -51,13 +51,10 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             # Apply backend deployment
-            microk8s kubectl apply -f ~/deploy/k8s/backend-deployment.yaml
+            microk8s kubectl apply -f /home/${{ secrets.SERVER_USER }}/deploy/k8s/backend-deployment.yaml
 
             # Apply frontend deployment
-            microk8s kubectl apply -f ~/deploy/k8s/frontend-deployment.yaml
+            microk8s kubectl apply -f /home/${{ secrets.SERVER_USER }}/deploy/k8s/frontend-deployment.yaml
 
             # Apply ingress
-            microk8s kubectl apply -f ~/deploy/k8s/ingress.yaml
-
-            # Check status
-            microk8s kubectl get pods -A
+            microk8s kubectl apply -f /home/${{ secrets.SERVER_USER }}/deploy/k8s/ingress.yaml
