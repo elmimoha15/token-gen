@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Tokengen CI/CD Pipeline
 
 on:
   push:
