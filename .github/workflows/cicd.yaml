@@ -13,24 +13,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
     - name: Login to DockerHub
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
     - name: Build and Push Backend Image
       run: |
-        sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-backend:latest ./backend
-        sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-backend:latest
+         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-backend:latest ./backend
+         docker push ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-backend:latest
 
     - name: Build and Push Frontend Image
       run: |
-        sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-frontend:latest ./frontend
-        sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-frontend:latest
+         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-frontend:latest ./frontend
+         docker push ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-frontend:latest
 
     - name: Copy Kubernetes Manifests
       uses: appleboy/scp-action@v0.1.4
@@ -49,7 +49,5 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
           microk8s kubectl apply -f ~/deploy/k8s/backend-deployment.yaml
-          microk8s kubectl apply -f ~/deploy/k8s/backend-service.yaml
           microk8s kubectl apply -f ~/deploy/k8s/frontend-deployment.yaml
-          microk8s kubectl apply -f ~/deploy/k8s/frontend-service.yaml
           microk8s kubectl apply -f ~/deploy/k8s/ingress.yaml
