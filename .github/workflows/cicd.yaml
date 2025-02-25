@@ -24,13 +24,13 @@ jobs:
 
     - name: Build and Push Backend Image
       run: |
-        sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-backend:latest ./backend
-        sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-backend:latest
+         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-backend:latest ./backend
+         docker push ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-backend:latest
 
     - name: Build and Push Frontend Image
       run: |
-        sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-frontend:latest ./frontend
-        sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-frontend:latest
+         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-frontend:latest ./frontend
+         docker push ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-frontend:latest
 
     - name: Set up SSH
       uses: appleboy/ssh-action@v0.1.10
