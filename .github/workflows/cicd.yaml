@@ -31,8 +31,7 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-frontend:latest ./frontend
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/tokengen-frontend:latest
-
-      # ✅ Correctly indented Copy step
+          
       - name: Copy K8s manifests to server
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -42,7 +41,6 @@ jobs:
           source: "./k8s"            
           target: "/home/${{ secrets.SERVER_USER }}/deploy/k8s" 
 
-      # ✅ Correctly indented Deploy step
       - name: Deploy to MicroK8s
         uses: appleboy/ssh-action@v0.1.10
         with:
