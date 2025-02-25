@@ -23,6 +23,7 @@ kind: Service
 metadata:
   name: tokengen-frontend-service
 spec:
+  type: NodePort 
   selector:
     app: tokengen-frontend
   ports:
@@ -30,3 +31,4 @@ spec:
       port: 80
       targetPort: 80
       nodePort: 30002
+
