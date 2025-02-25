@@ -38,8 +38,9 @@ jobs:
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        source: "k8s/*"
+        source: "k8s/*"  # Copy only the contents, not the folder
         target: "~/deploy/k8s/"
+
 
     - name: Deploy to MicroK8s
       uses: appleboy/ssh-action@v0.1.10
